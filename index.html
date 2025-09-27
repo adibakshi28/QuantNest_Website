@@ -825,7 +825,7 @@ footer {
     
     <div class="contact-grid">
       <div class="contact-form reveal">
-        <form action="https://formspree.io/f/your-id" method="POST">
+        <form id="contactForm" action="https://formspree.io/f/xdkwalrv" method="POST">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Full Name</label>
@@ -836,7 +836,7 @@ footer {
               <input type="email" id="email" name="email" required>
             </div>
           </div>
-          
+
           <div class="form-row">
             <div class="form-group">
               <label for="company">Organization</label>
@@ -847,14 +847,17 @@ footer {
               <input type="text" id="role" name="role">
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="message">How can we help?</label>
             <textarea id="message" name="message" required></textarea>
           </div>
-          
+
           <input type="hidden" name="_subject" value="New website inquiry – QuantNest">
+          <input type="text" name="_gotcha" style="display:none"> <!-- anti-spam -->
+
           <button type="submit" class="btn primary" style="width: 100%">Send Message</button>
+          <p id="formStatus" style="margin-top:12px;color:var(--text-secondary)"></p>
         </form>
       </div>
       
@@ -978,5 +981,36 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 </script>
+
+<script>
+const form = document.getElementById('contactForm');
+const statusEl = document.getElementById('formStatus');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  statusEl.textContent = 'Sending…';
+
+  try {
+    const data = new FormData(form);
+    const res = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      statusEl.textContent = '✅ Thanks! We’ll get back to you shortly.';
+      form.reset();
+    } else {
+      const err = await res.json().catch(() => ({}));
+      statusEl.textContent = err.errors?.map(e => e.message).join(', ') 
+        || '❌ Something went wrong. Please email quantnest@gmail.com.';
+    }
+  } catch (err) {
+    statusEl.textContent = '⚠️ Network error. Please try again later.';
+  }
+});
+</script>
+
 </body>
 </html>
