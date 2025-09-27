@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>QuantNest — Research • Strategies • Infrastructure</title>
+<meta name="description" content="QuantNest empowers hedge funds, asset managers, and family offices with cutting-edge research, tailored strategies, and scalable infrastructure." />
+<style>
+/* --------- Base + Layout --------- */
+:root{
+  --bg1:#070a12; --bg2:#0a1222; --ink:#eaf1ff; --muted:#9fb0c6;
+  --accent:#67e8f9; --accent2:#22d3ee; --ok:#5eead4; --card:#0e1729; --line:#1a2640;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:radial-gradient(1200px 800px at 20% -10%, #10213d 0%, transparent 60%),
+                               radial-gradient(1200px 900px at 120% 10%, #0b1630 0%, transparent 55%),
+                               linear-gradient(180deg,var(--bg1),var(--bg2));
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  overflow-x:hidden;
+}
+a{color:var(--accent2); text-decoration:none}
+.container{width:100%; padding:0 6vw}
+.max{max-width:1200px; margin:0 auto}
+
+/* --------- Top Nav --------- */
+.nav{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:saturate(130%) blur(10px);
+  background:linear-gradient(180deg,rgba(10,18,34,.75),rgba(10,18,34,.35));
+  border-bottom:1px solid rgba(34,52,86,.4);
+}
+.nav-row{display:flex; align-items:center; justify-content:space-between; height:64px}
+.brand{display:flex; gap:12px; align-items:center; font-weight:800; letter-spacing:.2px}
+.brand .mark{width:16px; height:16px; border-radius:4px;
+  background:conic-gradient(from 0deg, var(--accent), var(--accent2), #a1f0ff, var(--accent)); box-shadow:0 0 0 4px rgba(34,211,238,.12)}
+.nav a{color:var(--muted); margin-left:18px}
+.nav a:hover{color:var(--ink)}
+.cta{padding:9px 14px; border-radius:10px; font-weight:700; color:#00131a;
+     background:linear-gradient(90deg,var(--accent),var(--accent2)); border:1px solid rgba(34,211,238,.25)}
+.cta.ghost{background:transparent;color:var(--ink);border-color:#2a3b5e}
+
+/* --------- Sections (full width, snap) --------- */
+section{min-height:100svh; display:grid; align-items:center; position:relative; scroll-margin-top:72px}
+.snap{scroll-snap-type:y proximity}
+section.snap-item{scroll-snap-align:start}
+
+/* --------- Hero --------- */
+.hero{padding:8vh 0}
+.hero-grid{display:grid; grid-template-columns:1.3fr .9fr; gap:3vw}
+h1{font-size:clamp(36px,6vw,64px); line-height:1.05; margin:.1em 0 .2em}
+.lede{color:var(--muted); font-size:clamp(16px,1.6vw,18px); max-width:60ch}
+.badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+.badge{font-size:12px; color:#06212c; background:linear-gradient(90deg,#99f6ff,#6deaff);
+  padding:6px 10px; border-radius:999px; border:1px solid rgba(34,211,238,.35)}
+.hero-card{background:linear-gradient(180deg,#0d1930,#0c162b); border:1px solid var(--line);
+  border-radius:18px; padding:18px; display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.metric{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px}
+.metric .label{font-size:12px; color:var(--muted)}
+.metric .value{font-size:18px; font-weight:800; margin-top:6px}
+
+/* --------- Divider wave --------- */
+.wave{position:absolute; left:0; right:0; bottom:-1px; height:120px; pointer-events:none; opacity:.7}
+
+/* --------- Services / Panels --------- */
+h2{font-size:clamp(28px,3.6vw,40px); line-height:1.1; margin:0 0 .5em}
+.panels{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+.panel{background:linear-gradient(180deg,#0e1729,#0b1424); border:1px solid var(--line);
+  border-radius:16px; padding:18px}
+.panel h3{margin:0 0 .3em}
+.check{list-style:none; padding:0; margin:0}
+.check li{margin:8px 0; padding-left:22px; position:relative; color:var(--muted)}
+.check li::before{content:"✓"; position:absolute; left:0; color:var(--ok); font-weight:800}
+
+/* --------- About --------- */
+.two{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+.card{background:linear-gradient(180deg,#0c1527,#0a1222); border:1px solid var(--line);
+  border-radius:16px; padding:18px}
+
+/* --------- Contact / Footer --------- */
+.contact{display:grid; grid-template-columns:1.2fr .8fr; gap:20px}
+.form{display:grid; gap:12px}
+.row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+input,textarea{width:100%; padding:12px; border-radius:12px; border:1px solid #23314a; background:#0b1322; color:var(--ink)}
+label{display:grid; gap:6px; font-size:14px}
+.small{color:var(--muted); font-size:14px}
+.footer{padding:24px 0; border-top:1px solid var(--line); background:rgba(10,18,34,.6); backdrop-filter:blur(8px)}
+.footer .grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:18px}
+.tiny{color:var(--muted); font-size:12px; margin-top:8px}
+
+/* --------- Progress bar --------- */
+.progress{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  box-shadow:0 0 10px rgba(103,232,249,.8);
+  z-index:60
+}
+
+/* --------- Reveal on scroll --------- */
+.reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease}
+.reveal.in{opacity:1; transform:none}
+
+/* --------- Responsive --------- */
+@media (max-width:1024px){
+  .hero-grid{grid-template-columns:1fr}
+  .panels{grid-template-columns:1fr 1fr}
+  .contact{grid-template-columns:1fr}
+}
+@media (max-width:700px){
+  .panels{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .footer .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body class="snap">
+<div class="progress" id="progress"></div>
+
+<!-- ======= NAV ======= -->
+<div class="nav">
+  <div class="container max nav-row">
+    <div class="brand"><span class="mark"></span> QuantNest</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="cta ghost">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ======= HERO ======= -->
+<section id="home" class="snap-item hero">
+  <div class="container max hero-grid">
+    <div>
+      <h1 class="reveal">Turn data into durable alpha</h1>
+      <p class="lede reveal" style="transition-delay:.08s">
+        We empower hedge funds, asset managers, and family offices with cutting-edge research,
+        tailored strategies, and scalable infrastructure.
+      </p>
+      <div class="badges reveal" style="transition-delay:.16s">
+        <span class="badge">Systematic</span>
+        <span class="badge">Research-led</span>
+        <span class="badge">Infrastructure-ready</span>
+      </div>
+      <div class="reveal" style="margin-top:18px; display:flex; gap:12px; transition-delay:.22s">
+        <a class="cta" href="#services">Explore Services</a>
+        <a class="cta ghost" href="#contact">Book an Intro</a>
+      </div>
+    </div>
+    <aside class="hero-card reveal" style="transition-delay:.22s">
+      <div class="metric"><div class="label">Backtest speed-up</div><div class="value">×12</div></div>
+      <div class="metric"><div class="label">Time to first signal</div><div class="value">4–6 weeks</div></div>
+      <div class="metric"><div class="label">Coverage</div><div class="value">Global Eq • Fut • FX</div></div>
+      <div class="metric"><div class="label">Delivery</div><div class="value">Sprints or Retainer</div></div>
+    </aside>
+  </div>
+  <!-- Decorative wave -->
+  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path d="M0,40 C320,110 540,0 900,70 C1180,120 1290,100 1440,80 L1440,120 L0,120 Z" fill="url(#g1)"/>
+    <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#10213d" /><stop offset="1" stop-color="#0b1630" />
+    </linearGradient></defs>
+  </svg>
+</section>
+
+<!-- ======= SERVICES ======= -->
+<section id="services" class="snap-item">
+  <div class="container max">
+    <h2 class="reveal">What we do</h2>
+    <div class="panels">
+      <article class="panel reveal">
+        <h3>Research</h3>
+        <p class="small">Alpha discovery, signal engineering, validation.</p>
+        <ul class="check">
+          <li>Hypothesis design & data evaluation</li>
+          <li>Robustness testing & ablations</li>
+          <li>Risk and correlation analysis</li>
+        </ul>
+      </article>
+      <article class="panel reveal" style="transition-delay:.08s">
+        <h3>Strategies</h3>
+        <p class="small">From factor to alt-data; execution-aware by design.</p>
+        <ul class="check">
+          <li>Signal stacking & regime awareness</li>
+          <li>Transaction cost modeling</li>
+          <li>Live monitoring KPIs</li>
+        </ul>
+      </article>
+      <article class="panel reveal" style="transition-delay:.16s">
+        <h3>Infrastructure</h3>
+        <p class="small">Scalable, reproducible stacks quants love.</p>
+        <ul class="check">
+          <li>Data lakes & versioned datasets</li>
+          <li>Backtest frameworks & CI for models</li>
+          <li>Deployment, monitoring, auditability</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======= ABOUT ======= -->
+<section id="about" class="snap-item">
+  <div class="container max">
+    <h2 class="reveal">About QuantNest</h2>
+    <div class="two">
+      <div class="card reveal">
+        <h3>Our Mission</h3>
+        <p>
+          At QuantNest, our mission is to empower hedge funds, asset managers, and family offices with cutting-edge research,
+          tailored strategies, and scalable infrastructure. We believe every investment decision should be supported by robust
+          analysis and intelligent tools — turning data into actionable insights and risk into opportunity.
+        </p>
+      </div>
+      <div class="card reveal" style="transition-delay:.08s">
+        <h3>Who We Are</h3>
+        <p>
+          Built by quantitative researchers and strategists with backgrounds across fintech, institutional asset management,
+          and global banking. We bring deep coverage in equities, futures, and FX; hands-on alternative-data pipelines;
+          productionized backtesting and governance; and pragmatic risk management.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= CONTACT ======= -->
+<section id="contact" class="snap-item">
+  <div class="container max">
+    <h2 class="reveal">Start a conversation</h2>
+    <div class="contact">
+      <form class="form card reveal" action="https://formspree.io/f/your-id" method="POST">
+        <div class="row">
+          <label>Full name
+            <input type="text" name="name" required />
+          </label>
+          <label>Work email
+            <input type="email" name="email" required />
+          </label>
+        </div>
+        <div class="row">
+          <label>Organization
+            <input type="text" name="company" />
+          </label>
+          <label>Role
+            <input type="text" name="role" />
+          </label>
+        </div>
+        <label>How can we help?
+          <textarea rows="6" name="message" required></textarea>
+        </label>
+        <input type="hidden" name="_subject" value="New website inquiry – QuantNest">
+        <button class="cta" type="submit">Send message</button>
+        <p class="small">Or email us at <a href="mailto:quantnest@gmail.com">quantnest@gmail.com</a>.</p>
+      </form>
+
+      <aside class="card reveal" style="transition-delay:.1s">
+        <h3>Connect</h3>
+        <p class="small">
+          We typically reply within one business day. Follow updates and research notes on LinkedIn.
+        </p>
+        <p><a href="https://www.linkedin.com/company/108913216/admin/dashboard/" target="_blank" rel="noopener">LinkedIn →</a></p>
+        <h3 style="margin-top:18px">Engagement Models</h3>
+        <ul class="check">
+          <li>4–6 week research sprints</li>
+          <li>Strategy build programs</li>
+          <li>Retainer advisory</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ======= FOOTER ======= -->
+<footer class="footer">
+  <div class="container max">
+    <div class="grid">
+      <div>
+        <div class="brand"><span class="mark"></span> QuantNest</div>
+        <p class="small">Research, strategies, and infrastructure for professional investors.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <p class="small"><a href="#about">About</a><br><a href="#services">Services</a></p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p class="small"><a href="mailto:quantnest@gmail.com">quantnest@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="tiny">© <span id="y"></span> QuantNest LLC. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* ---- Progress bar ---- */
+const progress = document.getElementById('progress');
+const setProgress = () => {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const doc = document.documentElement;
+  const height = doc.scrollHeight - doc.clientHeight;
+  const p = (scrollTop / height) * 100;
+  progress.style.width = p + "%";
+};
+addEventListener('scroll', setProgress, {passive:true});
+addEventListener('resize', setProgress);
+setProgress();
+
+/* ---- Reveal on scroll ---- */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, {threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---- Subtle parallax for hero wave ---- */
+const wave = document.querySelector('.wave');
+addEventListener('scroll', ()=>{
+  const y = window.scrollY * 0.15;
+  wave.style.transform = `translateY(${y}px)`;
+}, {passive:true});
+
+/* ---- Year ---- */
+document.getElementById('y').textContent = new Date().getFullYear();
+
+/* ---- Optional: keyboard nav between sections ---- */
+const ids = ['home','services','about','contact'];
+let idx = 0;
+addEventListener('keydown', e=>{
+  if(['ArrowDown','PageDown'].includes(e.key)){ idx = Math.min(ids.length-1, idx+1); location.hash = ids[idx]; }
+  if(['ArrowUp','PageUp'].includes(e.key)){ idx = Math.max(0, idx-1); location.hash = ids[idx]; }
+});
+</script>
+</body>
+</html>
+```
