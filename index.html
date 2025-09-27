@@ -999,7 +999,7 @@ form.addEventListener('submit', async (e) => {
     });
 
     if (res.ok) {
-      statusEl.textContent = '✅ Thanks! We’ll get back to you shortly.';
+      statusEl.textContent = 'Thanks! We’ll get back to you shortly.';
       form.reset();
     } else {
       const err = await res.json().catch(() => ({}));
@@ -1007,7 +1007,7 @@ form.addEventListener('submit', async (e) => {
         || '❌ Something went wrong. Please email quantnest@gmail.com.';
     }
   } catch (err) {
-    statusEl.textContent = '⚠️ Network error. Please try again later.';
+    statusEl.textContent = 'Network error. Please try again later.';
   }
 });
 </script>
