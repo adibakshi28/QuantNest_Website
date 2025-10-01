@@ -238,7 +238,7 @@ section {
 
 /* ======= HERO SECTION ======= */
 .hero {
-  padding: 20px 0 40px;
+  padding: 10px 0 40px;
   position: relative;
   overflow: hidden;
 }
@@ -278,7 +278,7 @@ section {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
   line-height: 1.1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   background: linear-gradient(to right, var(--text-primary), var(--accent-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -355,14 +355,14 @@ section {
 }
 
 .metric-value {
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--accent-primary);
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .metric-label {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
 }
 
@@ -582,59 +582,115 @@ textarea {
 }
 
 /* ======= FOOTER ======= */
-footer {
-  background: var(--bg-secondary);
+.site-footer {
+  position: relative;
+  background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
   border-top: 1px solid var(--border-color);
-  padding: 60px 0 30px;
+  padding-top: 0; /* wave handles top padding visually */
+  overflow: clip;
 }
 
-.footer-grid {
+.footer-wave {
+  height: 90px;
+  margin-bottom: -10px; /* overlap content slightly */
+  filter: drop-shadow(0 -6px 24px rgba(14, 116, 144, .25));
+  opacity: .7;
+}
+
+.site-footer .container { position: relative; }
+
+.footer-top {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1.2fr;
   gap: 40px;
-  margin-bottom: 40px;
+  padding: 40px 0 20px;
 }
 
-.footer-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.brand-quiet img { filter: brightness(1.15); }
+.footer-tagline { color: var(--text-secondary); margin: 12px 0 16px; max-width: 460px; }
+
+.footer-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.f-badge {
+  font-size: .8rem; font-weight: 600;
+  color: var(--accent-primary);
+  background: rgba(59,130,246,.1);
+  border: 1px solid rgba(59,130,246,.2);
+  padding: 6px 10px; border-radius: 999px;
 }
 
-.footer-brand p {
-  color: var(--text-secondary);
-  max-width: 400px;
+.social-links { display: flex; gap: 12px; margin-top: 6px; }
+.social-links a {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px;
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-color);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.social-links a:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-secondary);
+  box-shadow: 0 6px 20px rgba(6,182,212,.25);
 }
 
-.footer-links h4, .footer-contact h4 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 20px;
+.site-footer h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 14px;
   color: var(--text-primary);
 }
+.site-footer ul { list-style: none; padding: 0; }
+.site-footer li { margin: 8px 0; }
+.site-footer a { color: var(--text-secondary); }
+.site-footer a:hover { color: var(--text-primary); }
 
-.footer-links ul, .footer-contact ul {
-  list-style: none;
+.footer-contact .footer-cta {
+  display: inline-block; margin-top: 16px; padding: 10px 16px; font-weight: 700;
 }
 
-.footer-links li, .footer-contact li {
-  margin-bottom: 10px;
-}
-
-.footer-links a, .footer-contact a {
-  color: var(--text-secondary);
-}
-
-.footer-links a:hover, .footer-contact a:hover {
-  color: var(--accent-primary);
-}
-
+/* Bottom bar */
 .footer-bottom {
-  padding-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 16px;
+  align-items: center;
+  padding: 5px 0 5px;
   border-top: 1px solid var(--border-color);
-  text-align: center;
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: .9rem;
+}
+
+.legal-links { display: flex; gap: 14px; }
+.legal-links a[aria-disabled="true"] { opacity: .6; pointer-events: none; }
+
+.back-to-top {
+  justify-self: end;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  width: 36px; height: 36px; border-radius: 10px;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.back-to-top:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 6px 20px rgba(59,130,246,.25);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .footer-top { grid-template-columns: 1.6fr 1fr; }
+  .footer-contact { grid-column: span 2; }
+}
+@media (max-width: 768px) {
+  .footer-top { grid-template-columns: 1fr; gap: 28px; }
+  .footer-contact { grid-column: span 1; }
+  .footer-bottom { grid-template-columns: 1fr; justify-items: start; gap: 10px; }
+  .back-to-top { justify-self: start; }
+}
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
 }
 
 /* ======= ANIMATIONS ======= */
@@ -949,20 +1005,20 @@ footer {
     <div class="hero-card reveal">
       <div class="metrics-grid">
         <div class="metric">
-          <div class="metric-value">×12</div>
-          <div class="metric-label">Backtest speed-up</div>
+          <div class="metric-value">Custom Hedge Reports</div>
+          <div class="metric-label">Portfolio stress tests & tailored risk solutions</div>
         </div>
         <div class="metric">
-          <div class="metric-value">4–6 weeks</div>
-          <div class="metric-label">Time to first signal</div>
+          <div class="metric-value">Thematic Research</div>
+          <div class="metric-label">Deep dives on macro & sector themes</div>
         </div>
         <div class="metric">
-          <div class="metric-value">Global</div>
-          <div class="metric-label">Eq • Fut • FX Coverage</div>
+          <div class="metric-value">Quant Infrastructure</div>
+          <div class="metric-label">Python pipelines & backtesting frameworks</div>
         </div>
         <div class="metric">
-          <div class="metric-value">Flexible</div>
-          <div class="metric-label">Sprints or Retainer</div>
+          <div class="metric-value">On-Demand Research</div>
+          <div class="metric-label">Fast-turnaround, ad hoc analysis</div>
         </div>
       </div>
     </div>
@@ -973,41 +1029,64 @@ footer {
 <section id="services" class="services">
   <div class="container">
     <h2 class="section-title reveal">Our Services</h2>
-    <p class="section-subtitle reveal">Comprehensive quantitative solutions designed to enhance your investment process and deliver sustainable alpha.</p>
+    <p class="section-subtitle reveal">Comprehensive research and infrastructure solutions designed to strengthen your investment process and deliver actionable insights.</p>
     
     <div class="services-grid">
       <div class="service-card reveal">
-        <h3>Research</h3>
-        <p>Alpha discovery, signal engineering, and rigorous validation to uncover unique investment insights.</p>
+        <h3>Hedging & Risk Reports</h3>
+        <p>Custom portfolio risk analysis and hedging strategies to safeguard against adverse scenarios.</p>
         <ul class="service-features">
-          <li>Hypothesis design & data evaluation</li>
-          <li>Robustness testing & ablations</li>
-          <li>Risk & correlation analysis</li>
-          <li>Alternative data integration</li>
+          <li>Stress testing across macro & micro shocks</li>
+          <li>Tailored hedge design using liquid instruments</li>
+          <li>Correlation & sensitivity breakdowns</li>
+          <li>Professional reports with actionable trades</li>
         </ul>
       </div>
       
       <div class="service-card reveal" style="transition-delay: 0.1s">
-        <h3>Strategies</h3>
-        <p>From factor to alt-data; execution-aware by design to maximize implementation efficiency.</p>
+        <h3>Thematic Research</h3>
+        <p>Deep-dive reports on structural trends and themes, linked directly to portfolio exposures.</p>
         <ul class="service-features">
-          <li>Signal stacking & regime awareness</li>
-          <li>Transaction cost modeling</li>
-          <li>Live monitoring KPIs</li>
-          <li>Portfolio construction</li>
+          <li>AI, biotech, EM debt, energy transition, and more</li>
+          <li>Trade structures with clear payoff profiles</li>
+          <li>Scenario-driven impact analysis</li>
+          <li>Board/IC-ready deliverables</li>
         </ul>
       </div>
       
       <div class="service-card reveal" style="transition-delay: 0.2s">
-        <h3>Infrastructure</h3>
-        <p>Scalable, reproducible stacks your quants love, designed for performance and reliability.</p>
+        <h3>Quant Infrastructure</h3>
+        <p>Python-powered research stacks built for scalability, reproducibility, and speed.</p>
         <ul class="service-features">
-          <li>Data lakes & versioned datasets</li>
-          <li>Backtest frameworks & CI for models</li>
-          <li>Deployment, monitoring, and auditability</li>
-          <li>Cloud-native architecture</li>
+          <li>Data ingestion & factor modeling pipelines</li>
+          <li>Risk analytics & backtesting frameworks</li>
+          <li>Jupyter-based research environment</li>
+          <li>Reusable, documented codebase</li>
         </ul>
       </div>
+
+      <div class="service-card reveal" style="transition-delay: 0.2s">
+        <h3>Macro Risk Maps</h3>
+        <p>Subscription service delivering regular outlooks on key global risks.</p>
+        <ul class="service-features">
+          <li>Probabilistic scenario trees (recession, stagflation, soft landing, etc.)</li>
+          <li>Portfolio impact simulations</li>
+          <li>Visual dashboards + written insights</li>
+          <li>Quarterly or monthly updates</li>
+        </ul>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay: 0.2s">
+        <h3>Research Concierge</h3>
+        <p>On-demand analysis to answer urgent, high-value questions.</p>
+        <ul class="service-features">
+          <li>Fast-turnaround portfolio stress tests</li>
+          <li>Custom backtests & factor tilts</li>
+          <li>Thematic/event-driven deep dives</li>
+          <li>Extension of your in-house research team</li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1016,19 +1095,25 @@ footer {
 <section id="about">
   <div class="container">
     <h2 class="section-title reveal">About QuantNest</h2>
-    <p class="section-subtitle reveal">Learn more about our mission, values, and the team behind our quantitative expertise.</p>
+    <p class="section-subtitle reveal">Learn more about our mission, values, and the team driving our quantitative expertise.</p>
     
     <div class="about-grid">
       <div class="about-card reveal">
         <h3>Our Mission</h3>
-        <p>At QuantNest, our mission is to empower hedge funds, asset managers, and family offices with cutting-edge research, tailored strategies, and scalable infrastructure. We believe every investment decision should be supported by robust analysis and intelligent tools — turning data into actionable insights and risk into opportunity.</p>
-        <p>Our approach combines deep financial expertise with advanced technology to deliver solutions that drive performance while managing risk effectively.</p>
+        <p>At QuantNest, our mission is to empower hedge funds, asset managers, and family offices with research, strategies, and infrastructure that translate data into actionable insights. We believe every investment decision should be supported by rigorous analysis, robust risk management, and tools that make complexity practical.</p>
+        <p>Our approach combines years of front-line industry experience with modern quantitative methods, delivering solutions that strengthen portfolios and uncover opportunities while managing risk effectively.</p>
       </div>
       
       <div class="about-card reveal" style="transition-delay: 0.1s">
         <h3>Who We Are</h3>
-        <p>QuantNest is built by experienced quantitative researchers and strategists with backgrounds spanning fintech, institutional asset management, and global banking. We bring deep coverage in equities, futures, and FX; hands-on alternative-data pipelines; productionized backtesting and governance; and pragmatic risk management.</p>
-        <p>Our team includes PhDs in quantitative fields, former portfolio managers, and technology experts who understand the challenges of modern quantitative investing.</p>
+        <p>QuantNest is built by practitioners with deep experience in quantitative research, investment strategy, and technology. Our team’s background spans fintech innovation, institutional asset management, and senior leadership at a major Canadian bank.</p>
+        <ul>
+          <li>Expertise in equities, fixed income, derivatives, and digital assets</li>
+          <li>Practical knowledge in designing and scaling research infrastructure in Python</li>
+          <li>A proven track record of turning data-driven research into portfolio-ready strategies</li>
+          <li>Professional standards backed by designations such as the CFA Charter</li>
+        </ul>
+        <p>At QuantNest, we bridge research and execution — helping clients move from raw data to high-value deliverables.</p>
       </div>
     </div>
   </div>
@@ -1103,18 +1188,48 @@ footer {
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer class="site-footer">
+  <!-- Decorative wave -->
+  <div class="footer-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,80 C240,20 480,20 720,80 C960,140 1200,140 1440,80 L1440,120 L0,120 Z" fill="url(#footerGrad)"></path>
+      <defs>
+        <linearGradient id="footerGrad" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%"  stop-color="#1e40af"/>
+          <stop offset="100%" stop-color="#06b6d4"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
   <div class="container">
-    <div class="footer-grid">
+    <div class="footer-top">
       <div class="footer-brand">
-        <div class="brand">
-          <img src="QuantNest_Logo.png" alt="QuantNest logo">
+        <div class="brand brand-quiet">
+          <img src="QuantNest_Logo.png" alt="QuantNest logo" width="48" height="48" loading="lazy" decoding="async">
           <span class="brand-text">QuantNest</span>
         </div>
-        <p>Empowering investment firms with cutting-edge quantitative research, strategies, and infrastructure.</p>
+        <p class="footer-tagline">
+          Empowering investment firms with research, strategies, and infrastructure that turn data into durable alpha.
+        </p>
+
+        <div class="footer-badges" aria-label="Capabilities">
+          <span class="f-badge">Systematic</span>
+          <span class="f-badge">Research-led</span>
+          <span class="f-badge">Infra-ready</span>
+        </div>
+
+        <div class="social-links" aria-label="Social">
+          <a href="mailto:info@quantnestllc.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/quantnest" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.6c0-1.34-.03-3.06-1.87-3.06-1.88 0-2.16 1.47-2.16 2.97v5.69H9.3V9h3.41v1.56h.05c.48-.9 1.66-1.85 3.41-1.85 3.65 0 4.32 2.4 4.32 5.52v6.22ZM5.34 7.44a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14Zm-1.78 13h3.56V9H3.56v11.44Z"/></svg>
+          </a>
+        </div>
       </div>
-      
-      <div class="footer-links">
+
+      <nav class="footer-links">
         <h4>Company</h4>
         <ul>
           <li><a href="#home">Home</a></li>
@@ -1122,19 +1237,27 @@ footer {
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-      </div>
-      
+      </nav>
+
       <div class="footer-contact">
         <h4>Contact</h4>
         <ul>
           <li><a href="mailto:info@quantnestllc.com">info@quantnestllc.com</a></li>
-          <li><a href="https://www.linkedin.com/company/108913216/admin/dashboard/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li>New York, NY</li>
         </ul>
+
+        <a href="#contact" class="btn primary footer-cta">Get the Macro Risk Map →</a>
       </div>
     </div>
-    
+
     <div class="footer-bottom">
-      <p>© <span id="year"></span> QuantNest LLC. All rights reserved.</p>
+      <p>© <span id="year"></span> QuantNest LLC · All rights reserved</p>
+      <ul class="legal-links">
+        <li><a href="#home">Sitemap</a></li>
+        <li><a href="#" aria-disabled="true">Privacy</a></li>
+        <li><a href="#" aria-disabled="true">Terms</a></li>
+      </ul>
+      <button class="back-to-top" aria-label="Back to top">↑</button>
     </div>
   </div>
 </footer>
@@ -1226,6 +1349,12 @@ form.addEventListener('submit', async (e) => {
   } catch (err) {
     statusEl.textContent = 'Network error. Please try again later.';
   }
+});
+</script>
+
+<script>
+document.querySelector('.back-to-top')?.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 </script>
 
